@@ -1,4 +1,19 @@
-export const TaskTable = ({tasks}) => {
+import { TaskRow } from "./TaskRow"
+
+export const TaskTable = ({tasks, toggleTask, showCompleted = false}) => {
+
+  const TaskTableRow = (doneValue) => {
+    
+    return (
+      tasks
+      .filter (task => task.done === doneValue)
+      .map(task => (
+        <TaskRow task = {task} key = {task.name} toggleTask= {toggleTask}/>
+
+     ))
+
+    )
+  }
     return (
         <table>
             <thead>
@@ -8,18 +23,7 @@ export const TaskTable = ({tasks}) => {
             </thead>
             <tbody>
               {
-                  tasks.map(task => (
-                    <tr key = {task.name}>
-                      <td>
-                      {task.name}
-                      <input type="checkbox"
-                             checked ={task.done}
-                             onChange={() => alert('cambiando valor')}
-                       />
-                      </td>
-                    </tr>
-
-                 ))
+                TaskTableRow(showCompleted) 
               }
 
             </tbody>
